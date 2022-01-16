@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+   name: my-demon
+   labels:
+     tier: demonap
+   namespace: my-namespace 
+spec:
+  selector:
+    matchLabels:
+      auth: siva            
+  template:
+   metadata:
+      name: my-pod
+      labels:
+       auth: siva
+   spec:   
+      containers:
+       - name: my-ceph
+         image: fluentd
+           
+            
+              
+...      

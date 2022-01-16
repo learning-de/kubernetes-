@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+   name: my-demon
+   labels:
+     tier: demonap
+spec:
+    
+  selector:
+    matchLabels:
+      tier: demonap            
+  template:
+   metadata:
+      name: my-pod
+      labels:
+       tier: demonap
+   spec:   
+      containers:
+       - name: my-ceph
+         image: fluentd
+         ports:
+          - containerPort: 24224  
+            
+              
+...      

@@ -1,0 +1,36 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+ name: Role
+ namespace: my-namespace
+rules:
+ - apiGroups: [ "" ]
+   resources:
+     - deployment
+       pod
+       statefulset
+   verbs:
+      - list
+        get
+        patch 
+        watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: RoleBinding
+  namespace: my-namespace
+rules:
+subjects:
+   - kind: User
+     name: siva
+     apiGroup: "" 
+roleRef:
+     kind: Role
+     name: Role
+     apiGroup: ""
+
+     
+  
+...

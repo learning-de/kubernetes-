@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+           name: my-service
+           labels:
+                 tier: serve
+spec: 
+         selector:
+                 tier: serve
+         ports:
+                 - port: 8090
+         clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+        name: app
+        labels:
+                tier: serve
+spec:
+        selector:
+                matchLabels:
+                        tier: serve
+        replicas: 3
+        serviceName: "my-service"
+        template: 
+                metadata:  
+                        labels:
+                                  tier: serve
+                spec:                
+                        containers:
+                                - name: my-nginx
+                                  image: nginx
+                                  ports:
+                                        targetPort: 80
+                                  volumeMounts:
+                                         - name: my-volume
+                                           mountPath: /var/
+        
+       
+        volumeClaimTemplates:
+                 metadata:
+                         name: my-volume
+                spec:   
+                        - accessModes: ["ReadWriteOnce"]
+...                 
+
+

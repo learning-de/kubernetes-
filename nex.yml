@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: my-deploy
+   labels:
+    auth: siva
+   namespace: my-namespace  
+spec:
+   replicas: 3
+   selector:
+     matchLabels:
+       auth: siva
+   template:
+     metadata:
+       name: my-pod
+       labels:
+        auth: siva
+     spec:       
+       containers:
+        - name: jen
+          image: jenkins/jenkins
+          ports:
+             - containerPort: 8080                         
+        - name: ngi
+          image: nginx
+          ports:
+             - containerPort: 80
+                    
+...
